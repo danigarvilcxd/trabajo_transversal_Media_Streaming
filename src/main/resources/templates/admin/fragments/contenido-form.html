@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+    <section th:fragment="contenidoForm(contenido)" class="row g-3">
+        <section class="col-md-8">
+            <label class="form-label">Titulo</label>
+            <input class="form-control" type="text" name="titulo" required maxlength="200"
+                   th:value="${contenido != null ? contenido.titulo : ''}">
+        </section>
+        <section class="col-md-4">
+            <label class="form-label">Tipo</label>
+            <select class="form-select" name="tipo" required>
+                <option value="pelicula" th:selected="${contenido != null && contenido.tipo == 'pelicula'}">Pelicula</option>
+                <option value="serie" th:selected="${contenido != null && contenido.tipo == 'serie'}">Serie</option>
+                <option value="documental" th:selected="${contenido != null && contenido.tipo == 'documental'}">Documental</option>
+            </select>
+        </section>
+        <section class="col-12">
+            <label class="form-label">Descripcion</label>
+            <textarea class="form-control" name="descripcion" rows="3" th:text="${contenido != null ? contenido.descripcion : ''}"></textarea>
+        </section>
+        <section class="col-12">
+            <label class="form-label">Duracion</label>
+            <input class="form-control" type="number" name="duracion" min="1"
+                   th:value="${contenido != null ? contenido.duracion : ''}">
+        </section>
+        <section class="col-12">
+            <label class="form-label">Imagen de portada</label>
+            <input class="form-control" type="file" name="imagenArchivo" accept="image/png,image/jpeg,image/webp,image/gif">
+            <small class="text-muted" th:if="${contenido != null && contenido.imagen != null}"
+                   th:text="'Imagen actual: ' + ${contenido.imagen}"></small>
+        </section>
+        <section class="col-12">
+            <label class="form-label">Generos</label>
+            <section class="genre-checks">
+                <section class="form-check" th:each="genero : ${generos}">
+                    <input class="form-check-input" type="checkbox" name="generoIds"
+                           th:id="${(contenido != null ? 'edit-' + contenido.id : 'new') + '-genero-' + genero.id}"
+                           th:value="${genero.id}"
+                           th:checked="${contenido != null && contenido.generos.contains(genero)}">
+                    <label class="form-check-label"
+                           th:for="${(contenido != null ? 'edit-' + contenido.id : 'new') + '-genero-' + genero.id}"
+                           th:text="${genero.nombre}"></label>
+                </section>
+                <p class="text-muted mb-0" th:if="${generos.empty}">No hay generos creados todavia.</p>
+            </section>
+        </section>
+    </section>
+</body>
+</html>

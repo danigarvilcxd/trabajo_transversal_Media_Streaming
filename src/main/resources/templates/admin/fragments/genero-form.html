@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+    <section th:fragment="generoForm(genero)" class="row g-3">
+        <section class="col-12">
+            <label class="form-label">Nombre</label>
+            <input class="form-control" type="text" name="nombre" required maxlength="50"
+                   th:value="${genero != null ? genero.nombre : ''}">
+        </section>
+        <section class="col-12">
+            <label class="form-label">Descripcion</label>
+            <textarea class="form-control" name="descripcion" rows="3" maxlength="255"
+                      th:text="${genero != null ? genero.descripcion : ''}"></textarea>
+        </section>
+    </section>
+</body>
+</html>

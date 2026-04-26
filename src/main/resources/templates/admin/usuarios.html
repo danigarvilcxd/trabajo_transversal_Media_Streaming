@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionar Usuarios - Media Streaming</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+    <!-- Navbar Admin -->
+    <nav class="navbar-admin">
+        <section class="navbar-content">
+            <section class="navbar-brand-section">
+                <a href="/admin/dashboard" class="brand brand-logo">
+                    <img src="/img/Logo vibrante de streaming multimedia.png" alt="Media Streaming">
+                </a>
+                <span class="admin-badge">ADMINISTRADOR</span>
+            </section>
+            <ul class="nav-menu">
+                <li><a href="/admin/dashboard">Panel</a></li>
+                <li><a href="/admin/usuarios" class="active">Usuarios</a></li>
+                <li><a href="/admin/contenido">Contenido</a></li>
+                <li><a href="/admin/generos">Generos</a></li>
+                <li><a href="/admin/reportes">Reportes</a></li>
+            </ul>
+            <section class="navbar-user-section">
+                <span class="user-info" th:text="${usuario.apodo}"></span>
+                <a href="/auth/logout" class="logout-btn">Cerrar Sesion</a>
+            </section>
+        </section>
+    </nav>
+
+    <main class="dashboard-container">
+        <section class="welcome-section">
+            <h2>Gestionar Usuarios</h2>
+            <p>Administra todos los usuarios de la plataforma.</p>
+            <button class="btn btn-add" type="button" data-bs-toggle="modal" data-bs-target="#crearUsuarioModal">
+                + Agregar Usuario
+            </button>
+        </section>
+
+        <section class="alert alert-danger" th:if="${error}" th:text="${error}"></section>
+
+        <section class="admin-table">
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Apodo</th>
+                        <th>Correo</th>
+                        <th>Tipo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="item : ${usuarios}">
+                        <td th:text="${item.id}"></td>
+                        <td th:text="${item.apodo}"></td>
+                        <td th:text="${item.correo}"></td>
+                        <td>
+                            <span th:classappend="${item.tipo_usuario.valor == 'admin'} ? 'badge bg-danger' : 'badge bg-primary'"
+                                  th:text="${item.tipo_usuario.valor == 'admin'} ? 'Admin' : 'Usuario'"></span>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-warning" type="button" data-bs-toggle="modal"
+                                    th:data-bs-target="${'#editarUsuarioModal' + item.id}">
+                                Editar
+                            </button>
+                            <form th:action="@{/admin/usuarios/eliminar}" method="post" class="d-inline"
+                                  onsubmit="return confirm('Seguro que quieres eliminar este usuario?');">
+                                <input type="hidden" name="id" th:value="${item.id}">
+                                <button class="btn btn-sm btn-danger" type="submit">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr th:if="${usuarios.empty}">
+                        <td colspan="5" class="text-center">No hay usuarios registrados.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <section class="modal fade" id="crearUsuarioModal" tabindex="-1" aria-labelledby="crearUsuarioModalLabel" aria-hidden="true">
+        <section class="modal-dialog">
+            <section class="modal-content">
+                <form th:action="@{/admin/usuarios/guardar}" method="post">
+                    <section class="modal-header">
+                        <h5 class="modal-title" id="crearUsuarioModalLabel">Agregar usuario</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </section>
+                    <section class="modal-body">
+                        <section th:replace="~{admin/fragments/usuario-form :: usuarioForm(null)}"></section>
+                    </section>
+                    <section class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </section>
+                </form>
+            </section>
+        </section>
+    </section>
+
+    <section th:each="item : ${usuarios}" class="modal fade" th:id="${'editarUsuarioModal' + item.id}" tabindex="-1"
+             aria-labelledby="editarUsuarioModalLabel" aria-hidden="true">
+        <section class="modal-dialog">
+            <section class="modal-content">
+                <form th:action="@{/admin/usuarios/guardar}" method="post">
+                    <input type="hidden" name="id" th:value="${item.id}">
+                    <section class="modal-header">
+                        <h5 class="modal-title" id="editarUsuarioModalLabel">Editar usuario</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </section>
+                    <section class="modal-body">
+                        <section th:replace="~{admin/fragments/usuario-form :: usuarioForm(${item})}"></section>
+                    </section>
+                    <section class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                    </section>
+                </form>
+            </section>
+        </section>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

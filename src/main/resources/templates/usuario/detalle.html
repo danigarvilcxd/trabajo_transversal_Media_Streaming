@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${contenido.titulo} + ' - Media Streaming'">Detalle de Contenido</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/usuario.css">
+</head>
+<body>
+    <nav class="navbar-custom">
+        <section class="navbar-content">
+            <a href="/usuario/dashboard" class="brand brand-logo">
+                <img src="/img/Logo vibrante de streaming multimedia.png" alt="Media Streaming">
+            </a>
+            <ul class="nav-menu">
+                <li><a href="/usuario/dashboard">Inicio</a></li>
+                <li><a href="/usuario/contenido">Explorar</a></li>
+                <li><a href="/usuario/historial">Historial</a></li>
+                <li><a href="/usuario/favoritos">Favoritos</a></li>
+            </ul>
+            <section class="navbar-user-section">
+                <span class="user-info" th:text="${usuario.apodo}"></span>
+                <a href="/auth/logout" class="logout-btn">Cerrar Sesión</a>
+            </section>
+        </div>
+    </nav>
+
+    <main class="dashboard-container">
+        <section class="welcome-section">
+            <h2 th:text="${contenido.titulo}">Título del contenido</h2>
+            <p th:text="${contenido.descripcion}">Descripción del contenido</p>
+        </section>
+
+        <article class="content-card detail-card">
+            <div class="detail-image">
+                <img th:if="${contenido.imagen} != null" th:src="@{'/img/img_contenidos/' + ${contenido.imagen}}" th:alt="${contenido.titulo}" />
+                <div th:unless="${contenido.imagen} != null" class="default-image detail-default">🎬</div>
+            </div>
+            <section class="content-card-body">
+                <p><strong>Tipo:</strong> <span th:text="${contenido.tipo}">Tipo</span></p>
+                <p><strong>Duración:</strong> <span th:text="${contenido.duracion}">Duración</span> min</p>
+                <p><strong>Géneros:</strong>
+                    <span th:each="genero, generoStat : ${contenido.generos}" th:text="${genero.nombre} + (generoStat.last ? '' : ', ')"></span>
+                </p>
+                <div class="button-row" style="margin-top: 20px; display: flex; gap: 15px; flex-wrap: wrap;">
+                    <a class="btn btn-primary" th:href="@{/usuario/contenido/ver/{id}(id=${contenido.id})}">Reproducir</a>
+                    <a class="btn btn-secondary" th:href="@{/usuario/contenido/favorito/{id}(id=${contenido.id}, redirect='detalle')}" th:text="${esFavorito} ? 'Quitar favorito' : 'Agregar favorito'">Favorito</a>
+                    <a class="btn btn-light" href="/usuario/contenido">Volver a explorar</a>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

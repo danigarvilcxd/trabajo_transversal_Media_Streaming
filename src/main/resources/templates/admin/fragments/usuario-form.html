@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+    <section th:fragment="usuarioForm(item)" class="row g-3">
+        <section class="col-12">
+            <label class="form-label">Apodo</label>
+            <input class="form-control" type="text" name="apodo" required maxlength="100"
+                   th:value="${item != null ? item.apodo : ''}">
+        </section>
+        <section class="col-12">
+            <label class="form-label">Correo</label>
+            <input class="form-control" type="email" name="correo" required maxlength="100"
+                   th:value="${item != null ? item.correo : ''}">
+        </section>
+        <section class="col-12">
+            <label class="form-label">Contrasena</label>
+            <input class="form-control" type="password" name="contrasena"
+                   th:required="${item == null}"
+                   th:placeholder="${item != null ? 'Dejar vacio para mantener la actual' : ''}">
+        </section>
+        <section class="col-12">
+            <label class="form-label">Tipo</label>
+            <select class="form-select" name="tipoUsuario" required>
+                <option value="usuario" th:selected="${item == null || item.tipo_usuario.valor == 'usuario'}">Usuario</option>
+                <option value="admin" th:selected="${item != null && item.tipo_usuario.valor == 'admin'}">Admin</option>
+            </select>
+        </section>
+    </section>
+</body>
+</html>

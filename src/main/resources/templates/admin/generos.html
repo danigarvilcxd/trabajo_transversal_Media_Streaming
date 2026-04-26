@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionar Generos - Media Streaming</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+    <!-- Navbar Admin -->
+    <nav class="navbar-admin">
+        <section class="navbar-content">
+            <section class="navbar-brand-section">
+                <a href="/admin/dashboard" class="brand brand-logo">
+                    <img src="/img/Logo vibrante de streaming multimedia.png" alt="Media Streaming">
+                </a>
+                <span class="admin-badge">ADMINISTRADOR</span>
+            </section>
+            <ul class="nav-menu">
+                <li><a href="/admin/dashboard">Panel</a></li>
+                <li><a href="/admin/usuarios">Usuarios</a></li>
+                <li><a href="/admin/contenido">Contenido</a></li>
+                <li><a href="/admin/generos" class="active">Generos</a></li>
+                <li><a href="/admin/reportes">Reportes</a></li>
+            </ul>
+            <section class="navbar-user-section">
+                <span class="user-info" th:text="${usuario.apodo}"></span>
+                <a href="/auth/logout" class="logout-btn">Cerrar Sesion</a>
+            </section>
+        </section>
+    </nav>
+
+    <main class="dashboard-container">
+        <section class="welcome-section">
+            <h2>Gestionar Generos</h2>
+            <p>Administra todos los generos disponibles.</p>
+            <button class="btn btn-add" type="button" data-bs-toggle="modal" data-bs-target="#crearGeneroModal">
+                + Agregar Genero
+            </button>
+        </section>
+
+        <section class="alert alert-danger" th:if="${error}" th:text="${error}"></section>
+
+        <section class="admin-table">
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Descripcion</th>
+                        <th>Contenido Asociado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="genero : ${generos}">
+                        <td th:text="${genero.id}"></td>
+                        <td th:text="${genero.nombre}"></td>
+                        <td th:text="${genero.descripcion}"></td>
+                        <td th:text="${genero.contenidos.size()}"></td>
+                        <td>
+                            <button class="btn btn-sm btn-warning" type="button" data-bs-toggle="modal"
+                                    th:data-bs-target="${'#editarGeneroModal' + genero.id}">
+                                Editar
+                            </button>
+                            <form th:action="@{/admin/generos/eliminar}" method="post" class="d-inline"
+                                  onsubmit="return confirm('Seguro que quieres eliminar este genero? Se quitara de los contenidos asociados.');">
+                                <input type="hidden" name="id" th:value="${genero.id}">
+                                <button class="btn btn-sm btn-danger" type="submit">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr th:if="${generos.empty}">
+                        <td colspan="5" class="text-center">No hay generos registrados.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <section class="modal fade" id="crearGeneroModal" tabindex="-1" aria-labelledby="crearGeneroModalLabel" aria-hidden="true">
+        <section class="modal-dialog">
+            <section class="modal-content">
+                <form th:action="@{/admin/generos/guardar}" method="post">
+                    <section class="modal-header">
+                        <h5 class="modal-title" id="crearGeneroModalLabel">Agregar genero</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </section>
+                    <section class="modal-body">
+                        <section th:replace="~{admin/fragments/genero-form :: generoForm(null)}"></section>
+                    </section>
+                    <section class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </section>
+                </form>
+            </section>
+        </section>
+    </section>
+
+    <section th:each="genero : ${generos}" class="modal fade" th:id="${'editarGeneroModal' + genero.id}" tabindex="-1"
+             aria-labelledby="editarGeneroModalLabel" aria-hidden="true">
+        <section class="modal-dialog">
+            <section class="modal-content">
+                <form th:action="@{/admin/generos/guardar}" method="post">
+                    <input type="hidden" name="id" th:value="${genero.id}">
+                    <section class="modal-header">
+                        <h5 class="modal-title" id="editarGeneroModalLabel">Editar genero</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </section>
+                    <section class="modal-body">
+                        <section th:replace="~{admin/fragments/genero-form :: generoForm(${genero})}"></section>
+                    </section>
+                    <section class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                    </section>
+                </form>
+            </section>
+        </section>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

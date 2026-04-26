@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Biblioteca - Media Streaming</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/usuario.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar-custom">
+        <section class="navbar-content">
+            <a href="/usuario/dashboard" class="brand brand-logo">
+                <img src="/img/Logo vibrante de streaming multimedia.png" alt="Media Streaming">
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="/usuario/dashboard" class="active">Inicio</a></li>
+                <li><a href="/usuario/contenido">Explorar</a></li>
+                <li><a href="/usuario/historial">Historial</a></li>
+                <li><a href="/usuario/favoritos">Favoritos</a></li>
+            </ul>
+            
+            <section class="navbar-user-section">
+                <span class="user-info" th:text="${usuario.apodo}"></span>
+                <a href="/auth/logout" class="logout-btn">Cerrar Sesión</a>
+            </section>
+        </div>
+    </nav>
+
+    <!-- Dashboard Content -->
+    <main class="dashboard-container">
+        <div class="dashboard-layout">
+            <aside class="dashboard-panel panel-sidebar">
+                <div class="welcome-section">
+                    <h2 th:text="'¡Hola, ' + ${usuario.apodo} + '! 👋'"></h2>
+                    <p>Bienvenido a tu biblioteca personal. Aquí puedes encontrar tu contenido en progreso y tus recomendaciones.</p>
+                </div>
+                <section class="panel-card">
+                    <h4>Atajos rápidos</h4>
+                    <nav class="panel-links">
+                        <a href="/usuario/contenido" class="btn btn-secondary">Explorar contenido</a>
+                        <a href="/usuario/historial" class="btn btn-secondary">Ver historial</a>
+                        <a href="/usuario/favoritos" class="btn btn-secondary">Tus favoritos</a>
+                    </nav>
+                </section>
+            </aside>
+
+            <section class="dashboard-panel panel-main">
+                <section class="section-block">
+                    <h3 class="section-title panel-section-title">▶️ Continuar Viendo</h3>
+                    <section class="content-grid" th:if="${continuarViendo} != null and !${continuarViendo.isEmpty()}">
+                        <article class="content-card" th:each="item : ${continuarViendo}">
+                            <div class="content-card-image">
+                                <img th:if="${item.contenido.imagen} != null" th:src="@{'/img/img_contenidos/' + ${item.contenido.imagen}}" th:alt="${item.contenido.titulo}" />
+                                <div th:unless="${item.contenido.imagen} != null" class="default-image">🎬</div>
+                                <div class="play-button">▶️</div>
+                            </div>
+                            <section class="content-card-body">
+                                <h3 th:text="${item.contenido.titulo}">Título</h3>
+                                <p th:text="${item.contenido.tipo} + ' • ' + (${item.tiempoVisto} != null ? item.tiempoVisto + ' seg vistos' : 'En progreso')">Detalle</p>
+                                <a class="btn btn-primary" th:href="@{/usuario/contenido/ver/{id}(id=${item.contenido.id})}">Volver a ver</a>
+                            </section>
+                        </article>
+                    </section>
+                    <section class="empty-message" th:if="${continuarViendo} == null or ${continuarViendo.isEmpty()}">
+                        <p>📺 Aún no tienes contenido en reproducción</p>
+                        <p class="empty-message-subtitle">Comienza a explorar contenido y aparecerá aquí</p>
+                    </section>
+                </section>
+
+                <section class="section-block">
+                    <h3 class="section-title panel-section-title">⭐ Recomendado para ti</h3>
+                    <section class="content-grid" th:if="${recomendados} != null and !${recomendados.isEmpty()}">
+                        <article class="content-card" th:each="item : ${recomendados}">
+                            <div class="content-card-image">
+                                <img th:if="${item.imagen} != null" th:src="@{'/img/img_contenidos/' + ${item.imagen}}" th:alt="${item.titulo}" />
+                                <div th:unless="${item.imagen} != null" class="default-image">🎬</div>
+                                <div class="play-button">▶️</div>
+                            </div>
+                            <section class="content-card-body">
+                                <h3 th:text="${item.titulo}">Título</h3>
+                                <p th:text="${item.tipo} + ' • ' + ${item.duracion} + ' min'">Detalle</p>
+                            </section>
+                        </article>
+                    </section>
+                    <section class="empty-message" th:if="${recomendados} == null or ${recomendados.isEmpty()}">
+                        <p>🔍 No hay recomendaciones disponibles</p>
+                    </section>
+                </section>
+            </section>
+
+            <aside class="dashboard-panel panel-aside">
+                <section class="panel-card">
+                    <h4>Tu actividad</h4>
+                    <p>Revisa tus series y películas en progreso y retoma donde lo dejaste desde cualquier pantalla.</p>
+                </section>
+                <section class="panel-card">
+                    <h4>Consejos rápidos</h4>
+                    <ul class="panel-list">
+                        <li>Pulsa “Volver a ver” para retomar rápido.</li>
+                        <li>Marca favoritos para guardarlos y encontrarlos luego.</li>
+                        <li>Explora por género para descubrir nuevo contenido.</li>
+                    </ul>
+                </section>
+            </aside>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

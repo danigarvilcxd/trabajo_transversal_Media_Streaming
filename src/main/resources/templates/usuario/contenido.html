@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explorar Contenido - Media Streaming</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/usuario.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar-custom">
+        <section class="navbar-content">
+            <a href="/usuario/dashboard" class="brand brand-logo">
+                <img src="/img/Logo vibrante de streaming multimedia.png" alt="Media Streaming">
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="/usuario/dashboard">Inicio</a></li>
+                <li><a href="/usuario/contenido" class="active">Explorar</a></li>
+                <li><a href="/usuario/historial">Historial</a></li>
+                <li><a href="/usuario/favoritos">Favoritos</a></li>
+            </ul>
+            
+            <section class="navbar-user-section">
+                <span class="user-info" th:text="${usuario.apodo}"></span>
+                <a href="/auth/logout" class="logout-btn">Cerrar Sesión</a>
+            </section>
+        </div>
+    </nav>
+
+    <main class="dashboard-container">
+        <section class="welcome-section">
+            <h2>Explorar Contenido</h2>
+            <p>Encuentra películas, series y documentales disponibles.</p>
+        </section>
+
+        <form class="filter-section" action="/usuario/contenido" method="get">
+            <input type="text" name="busqueda" class="search-input" placeholder="Buscar contenido..." th:value="${busqueda}">
+            <select class="filter-select" name="genero">
+                <option th:value="Todos" th:selected="${selectedGenero == 'Todos'}">Todos los géneros</option>
+                <option th:each="genero : ${generos}"
+                        th:value="${genero.nombre}"
+                        th:text="${genero.nombre}"
+                        th:selected="${genero.nombre == selectedGenero}">
+                </option>
+            </select>
+            <button class="btn btn-secondary" type="submit">Buscar</button>
+        </form>
+
+        <h3 class="section-title">🎬 Todo el Contenido</h3>
+        <section class="content-grid" th:if="${contenidos} != null and !${contenidos.isEmpty()}">
+            <article class="content-card" th:each="item : ${contenidos}">
+                <div class="content-card-image">
+                    <img th:if="${item.imagen} != null" th:src="@{'/img/img_contenidos/' + ${item.imagen}}" th:alt="${item.titulo}" />
+                    <div th:unless="${item.imagen} != null" class="default-image">🎬</div>
+                    <div class="play-button">▶️</div>
+                </div>
+                <section class="content-card-body">
+                    <h3 th:text="${item.titulo}">Título</h3>
+                    <p th:text="${item.tipo} + ' • ' + ${item.duracion} + ' min'">Detalle</p>
+                    <p th:text="${item.descripcion}"></p>
+                    <a class="btn btn-primary me-2" th:href="@{/usuario/contenido/ver/{id}(id=${item.id})}">Ver ahora</a>
+                    <a class="btn btn-outline-secondary" th:href="@{/usuario/contenido/favorito/{id}(id=${item.id}, redirect='contenido')}"
+                       th:text="${favoritosIds.contains(item.id)} ? 'Quitar favorito' : 'Agregar favorito'">Agregar favorito</a>
+                </section>
+            </article>
+        </section>
+        <section class="empty-message" th:if="${contenidos == null or contenidos.isEmpty()}">
+            <p>🔍 No hay contenido disponible con esos criterios.</p>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

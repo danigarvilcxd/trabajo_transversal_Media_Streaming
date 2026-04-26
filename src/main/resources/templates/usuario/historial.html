@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial - Media Streaming</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/usuario.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar-custom">
+        <section class="navbar-content">
+            <a href="/usuario/dashboard" class="brand brand-logo">
+                <img src="/img/Logo vibrante de streaming multimedia.png" alt="Media Streaming">
+            </a>
+            <ul class="nav-menu">
+                <li><a href="/usuario/dashboard">Inicio</a></li>
+                <li><a href="/usuario/contenido">Explorar</a></li>
+                <li><a href="/usuario/historial" class="active">Historial</a></li>
+                <li><a href="/usuario/favoritos">Favoritos</a></li>
+            </ul>
+            <section class="navbar-user-section">
+                <span class="user-info" th:text="${usuario.apodo}"></span>
+                <a href="/auth/logout" class="logout-btn">Cerrar Sesión</a>
+            </section>
+        </div>
+    </nav>
+
+    <main class="dashboard-container">
+        <section class="welcome-section">
+            <h2>Mi Historial</h2>
+            <p>Contenido que has visto recientemente.</p>
+        </section>
+
+        <h3 class="section-title">📺 Historial de Visualización</h3>
+        <section class="content-grid" th:if="${historial} != null and !${historial.isEmpty()}">
+            <article class="content-card" th:each="vis : ${historial}">
+                <div class="content-card-image">
+                    <img th:if="${vis.contenido.imagen} != null" th:src="@{'/img/img_contenidos/' + ${vis.contenido.imagen}}" th:alt="${vis.contenido.titulo}" />
+                    <div th:unless="${vis.contenido.imagen} != null" class="default-image">🎬</div>
+                </div>
+                <section class="content-card-body">
+                    <h3 th:text="${vis.contenido.titulo}">Título</h3>
+                    <p th:text="${vis.contenido.tipo} + ' • ' + ${vis.contenido.duracion} + ' min'">Detalle</p>
+                    <p th:text="'Estado: ' + ${vis.estado} + ' • ' + ${vis.tiempoVisto} + ' seg vistos'">Progreso</p>
+                    <a class="btn btn-primary" th:href="@{/usuario/contenido/ver/{id}(id=${vis.contenido.id})}">Volver a ver</a>
+                </section>
+            </article>
+        </section>
+        <section class="empty-message" th:if="${historial == null or historial.isEmpty()}">
+            <p>📭 Aún no tienes contenido en tu historial</p>
+            <p class="empty-message-subtitle">Comienza a ver contenido y aparecerá aquí</p>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
