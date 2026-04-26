@@ -15,13 +15,13 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        String uploadPath = Paths.get("src", "main", "resources", "static", uploadDir)
+        String uploadPath = Paths.get(uploadDir)
                 .toAbsolutePath()
                 .normalize()
                 .toUri()
                 .toString();
 
         registry.addResourceHandler("/img/img_contenidos/**")
-                .addResourceLocations("classpath:/static/" + uploadDir + "/", uploadPath);
+                .addResourceLocations(uploadPath, "classpath:/static/img/img_contenidos/");
     }
 }

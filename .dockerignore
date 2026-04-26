@@ -8,3 +8,5 @@ README.md
 HELP.md
 docker-compose.yml
 src/main/resources/static/docs/*.png
+uploads/img_contenidos/*
+!uploads/img_contenidos/.gitkeep

@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Uploaded media ###
+uploads/img_contenidos/*
+!uploads/img_contenidos/.gitkeep

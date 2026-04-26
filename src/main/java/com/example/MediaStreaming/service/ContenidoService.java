@@ -79,9 +79,11 @@ public class ContenidoService {
         contenido.setDescripcion(descripcion);
         contenido.setTipo(tipo);
         contenido.setUrlArchivo(urlArchivo);
+        String imagenAnterior = contenido.getImagen();
         String imagen = guardarImagen(imagenArchivo);
         if (imagen != null) {
             contenido.setImagen(imagen);
+            eliminarImagenAnterior(imagenAnterior, imagen);
         }
         contenido.setDuracion(duracion);
 
@@ -110,7 +112,7 @@ public class ContenidoService {
         }
 
         String nombreArchivo = UUID.randomUUID() + extension;
-        Path carpetaDestino = Paths.get("src", "main", "resources", "static").resolve(uploadDir).normalize();
+        Path carpetaDestino = Paths.get(uploadDir).toAbsolutePath().normalize();
 
         try {
             Files.createDirectories(carpetaDestino);
@@ -118,6 +120,25 @@ public class ContenidoService {
             return nombreArchivo;
         } catch (IOException ex) {
             throw new IllegalStateException("No se pudo guardar la imagen subida.", ex);
+        }
+    }
+
+    private void eliminarImagenAnterior(String imagenAnterior, String imagenNueva) {
+        if (imagenAnterior == null || imagenAnterior.isBlank() || imagenAnterior.equals(imagenNueva)) {
+            return;
+        }
+
+        Path carpetaDestino = Paths.get(uploadDir).toAbsolutePath().normalize();
+        Path imagenAnteriorPath = carpetaDestino.resolve(imagenAnterior).normalize();
+
+        if (!imagenAnteriorPath.startsWith(carpetaDestino)) {
+            return;
+        }
+
+        try {
+            Files.deleteIfExists(imagenAnteriorPath);
+        } catch (IOException ex) {
+            throw new IllegalStateException("No se pudo eliminar la imagen anterior.", ex);
         }
     }
 
