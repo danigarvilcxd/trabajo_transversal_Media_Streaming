@@ -8,37 +8,33 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-    <main class="container">
-        <header class="header-top">
-            <h1>🎬 Media Streaming</h1>
-            <a href="/login" class="btn-auth-header">Iniciar Sesión</a>
+    <main class="container-lg bg-white text-center rounded-3 shadow-lg p-4 p-md-5 my-4">
+        <header class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 mb-4">
+            <img class="landing-logo" src="/img/Logo vibrante de streaming multimedia.png" alt="Media Streaming">
+            <a href="/login" class="btn btn-primary fw-semibold px-4">Iniciar Sesión</a>
         </header>
-        <p>Bienvenido a nuestra plataforma de streaming de contenido multimedia</p>
-        <div class="button-group">
-            <a href="/login" class="btn btn-primary">Iniciar Sesión</a>
-            <a href="/usuario/contenido" class="btn btn-secondary">Explorar</a>
-        </div>
+        <p class="text-secondary fs-5 mb-4">Bienvenido a nuestra plataforma de streaming de contenido multimedia</p>
 
-        <section class="landing-stats mt-5">
-            <h3>Contenido disponible</h3>
-            <p th:text="${totalContenidos} + ' títulos listos para disfrutar'"></p>
+        <section class="mt-5">
+            <h3 class="h4 text-dark">Contenido disponible</h3>
+            <p class="text-secondary mb-0" th:text="${totalContenidos} + ' títulos listos para disfrutar'"></p>
         </section>
 
-        <h3 class="mt-4">Recomendado para ti</h3>
+        <h3 class="h4 mt-4 mb-3 text-dark">Recomendado para ti</h3>
         <div class="row row-cols-1 row-cols-md-2 g-4" th:if="${recomendados} != null and !${recomendados.isEmpty()}">
             <article class="col" th:each="item : ${recomendados}">
-                <article class="card h-100">
+                <article class="card h-100 border-0 shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title" th:text="${item.titulo}">Título</h5>
-                        <p class="card-text" th:text="${item.tipo} + ' • ' + ${item.duracion} + ' min'"></p>
-                        <p class="card-text" th:text="${item.descripcion}"></p>
+                        <p class="card-text text-secondary small" th:text="${item.tipo} + ' • ' + ${item.duracion} + ' min'"></p>
+                        <p class="card-text text-secondary" th:text="${item.descripcion}"></p>
                         <a class="btn btn-primary" th:href="@{/usuario/contenido/ver/{id}(id=${item.id})}">Ver ahora</a>
                     </div>
                 </article>
             </article>
         </div>
         <section class="mt-4" th:if="${recomendados} == null or ${recomendados.isEmpty()}">
-            <p>No hay recomendaciones disponibles en este momento.</p>
+            <p class="text-secondary mb-0">No hay recomendaciones disponibles en este momento.</p>
         </section>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

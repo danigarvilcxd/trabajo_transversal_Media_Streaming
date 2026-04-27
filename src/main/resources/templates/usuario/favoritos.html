@@ -14,7 +14,7 @@
             <a href="/usuario/dashboard" class="brand brand-logo">
                 <img src="/img/Logo vibrante de streaming multimedia.png" alt="Media Streaming">
             </a>
-            <ul class="nav-menu">
+            <ul class="nav-menu list-unstyled mb-0">
                 <li><a href="/usuario/dashboard">Inicio</a></li>
                 <li><a href="/usuario/contenido">Explorar</a></li>
                 <li><a href="/usuario/historial">Historial</a></li>
@@ -24,11 +24,11 @@
                 <span class="user-info" th:text="${usuario.apodo}"></span>
                 <a href="/auth/logout" class="logout-btn">Cerrar Sesión</a>
             </section>
-        </div>
+        </section>
     </nav>
 
-    <main class="dashboard-container">
-        <section class="welcome-section">
+    <main class="dashboard-container container-xxl py-4 px-3">
+        <section class="welcome-section bg-white rounded-3 shadow p-4 mb-4">
             <h2>Mis Favoritos</h2>
             <p>Contenido que has marcado como favorito.</p>
         </section>

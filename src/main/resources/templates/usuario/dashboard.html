@@ -15,7 +15,7 @@
                 <img src="/img/Logo vibrante de streaming multimedia.png" alt="Media Streaming">
             </a>
             
-            <ul class="nav-menu">
+            <ul class="nav-menu list-unstyled mb-0">
                 <li><a href="/usuario/dashboard" class="active">Inicio</a></li>
                 <li><a href="/usuario/contenido">Explorar</a></li>
                 <li><a href="/usuario/historial">Historial</a></li>
@@ -26,18 +26,18 @@
                 <span class="user-info" th:text="${usuario.apodo}"></span>
                 <a href="/auth/logout" class="logout-btn">Cerrar Sesión</a>
             </section>
-        </div>
+        </section>
     </nav>
 
     <!-- Dashboard Content -->
-    <main class="dashboard-container">
+    <main class="dashboard-container container-xxl py-4 px-3">
         <div class="dashboard-layout">
-            <aside class="dashboard-panel panel-sidebar">
-                <div class="welcome-section">
+            <aside class="dashboard-panel panel-sidebar bg-white rounded-3 shadow p-4">
+                <div class="welcome-section bg-white rounded-3 p-0 shadow-none">
                     <h2 th:text="'¡Hola, ' + ${usuario.apodo} + '! 👋'"></h2>
                     <p>Bienvenido a tu biblioteca personal. Aquí puedes encontrar tu contenido en progreso y tus recomendaciones.</p>
                 </div>
-                <section class="panel-card">
+                <section class="panel-card bg-light rounded-3 p-3">
                     <h4>Atajos rápidos</h4>
                     <nav class="panel-links">
                         <a href="/usuario/contenido" class="btn btn-secondary">Explorar contenido</a>
@@ -47,7 +47,7 @@
                 </section>
             </aside>
 
-            <section class="dashboard-panel panel-main">
+            <section class="dashboard-panel panel-main bg-white rounded-3 shadow p-4">
                 <section class="section-block">
                     <h3 class="section-title panel-section-title">▶️ Continuar Viendo</h3>
                     <section class="content-grid" th:if="${continuarViendo} != null and !${continuarViendo.isEmpty()}">
@@ -91,12 +91,12 @@
                 </section>
             </section>
 
-            <aside class="dashboard-panel panel-aside">
-                <section class="panel-card">
+            <aside class="dashboard-panel panel-aside bg-white rounded-3 shadow p-4">
+                <section class="panel-card bg-light rounded-3 p-3">
                     <h4>Tu actividad</h4>
                     <p>Revisa tus series y películas en progreso y retoma donde lo dejaste desde cualquier pantalla.</p>
                 </section>
-                <section class="panel-card">
+                <section class="panel-card bg-light rounded-3 p-3">
                     <h4>Consejos rápidos</h4>
                     <ul class="panel-list">
                         <li>Pulsa “Volver a ver” para retomar rápido.</li>

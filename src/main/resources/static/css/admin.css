@@ -241,23 +241,6 @@ body {
     margin: 0;
 }
 
-/* Add button */
-.btn-add {
-    background: #667eea;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-    margin-top: 15px;
-    transition: all 0.3s;
-}
-
-.btn-add:hover {
-    background: #5568d3;
-}
-
 .genre-checks {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));

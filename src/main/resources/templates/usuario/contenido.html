@@ -15,7 +15,7 @@
                 <img src="/img/Logo vibrante de streaming multimedia.png" alt="Media Streaming">
             </a>
             
-            <ul class="nav-menu">
+            <ul class="nav-menu list-unstyled mb-0">
                 <li><a href="/usuario/dashboard">Inicio</a></li>
                 <li><a href="/usuario/contenido" class="active">Explorar</a></li>
                 <li><a href="/usuario/historial">Historial</a></li>
@@ -26,18 +26,18 @@
                 <span class="user-info" th:text="${usuario.apodo}"></span>
                 <a href="/auth/logout" class="logout-btn">Cerrar Sesión</a>
             </section>
-        </div>
+        </section>
     </nav>
 
-    <main class="dashboard-container">
-        <section class="welcome-section">
+    <main class="dashboard-container container-xxl py-4 px-3">
+        <section class="welcome-section bg-white rounded-3 shadow p-4 mb-4">
             <h2>Explorar Contenido</h2>
             <p>Encuentra películas, series y documentales disponibles.</p>
         </section>
 
-        <form class="filter-section" action="/usuario/contenido" method="get">
-            <input type="text" name="busqueda" class="search-input" placeholder="Buscar contenido..." th:value="${busqueda}">
-            <select class="filter-select" name="genero">
+        <form class="filter-section d-flex flex-column flex-md-row gap-3 mb-4" action="/usuario/contenido" method="get">
+            <input type="text" name="busqueda" class="form-control" placeholder="Buscar contenido..." th:value="${busqueda}">
+            <select class="form-select" name="genero">
                 <option th:value="Todos" th:selected="${selectedGenero == 'Todos'}">Todos los géneros</option>
                 <option th:each="genero : ${generos}"
                         th:value="${genero.nombre}"

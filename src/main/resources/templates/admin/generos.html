@@ -17,7 +17,7 @@
                 </a>
                 <span class="admin-badge">ADMINISTRADOR</span>
             </section>
-            <ul class="nav-menu">
+            <ul class="nav-menu list-unstyled mb-0">
                 <li><a href="/admin/dashboard">Panel</a></li>
                 <li><a href="/admin/usuarios">Usuarios</a></li>
                 <li><a href="/admin/contenido">Contenido</a></li>
@@ -31,18 +31,18 @@
         </section>
     </nav>
 
-    <main class="dashboard-container">
-        <section class="welcome-section">
+    <main class="dashboard-container container-xxl py-4 px-3">
+        <section class="welcome-section bg-white rounded-3 shadow p-4 mb-4">
             <h2>Gestionar Generos</h2>
             <p>Administra todos los generos disponibles.</p>
-            <button class="btn btn-add" type="button" data-bs-toggle="modal" data-bs-target="#crearGeneroModal">
+            <button class="btn btn-primary fw-semibold mt-3" type="button" data-bs-toggle="modal" data-bs-target="#crearGeneroModal">
                 + Agregar Genero
             </button>
         </section>
 
         <section class="alert alert-danger" th:if="${error}" th:text="${error}"></section>
 
-        <section class="admin-table">
+        <section class="admin-table table-responsive bg-white rounded-3 shadow-sm">
             <table class="table table-hover align-middle">
                 <thead>
                     <tr>

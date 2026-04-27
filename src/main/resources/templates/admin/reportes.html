@@ -17,7 +17,7 @@
                 </a>
                 <span class="admin-badge">ADMINISTRADOR</span>
             </section>
-            <ul class="nav-menu">
+            <ul class="nav-menu list-unstyled mb-0">
                 <li><a href="/admin/dashboard">Panel</a></li>
                 <li><a href="/admin/usuarios">Usuarios</a></li>
                 <li><a href="/admin/contenido">Contenido</a></li>
@@ -28,41 +28,41 @@
                 <span class="user-info" th:text="${usuario.apodo}"></span>
                 <a href="/auth/logout" class="logout-btn">Cerrar Sesión</a>
             </section>
-        </div>
+        </section>
     </nav>
 
-    <main class="dashboard-container">
-        <section class="welcome-section">
+    <main class="dashboard-container container-xxl py-4 px-3">
+        <section class="welcome-section bg-white rounded-3 shadow p-4 mb-4">
             <h2>Reportes y Análisis</h2>
             <p>Visualiza análisis detallados sobre el uso de la plataforma.</p>
         </section>
 
         <section class="report-grid">
-            <article class="report-card">
+            <article class="report-card bg-white rounded-3 shadow-sm p-4">
                 <h3>📊 Usuarios Totales</h3>
                 <p th:text="${usuariosTotal} + ' usuarios registrados'"></p>
             </article>
-            <article class="report-card">
+            <article class="report-card bg-white rounded-3 shadow-sm p-4">
                 <h3>🎬 Contenido Disponible</h3>
                 <p th:text="${contenidosTotal} + ' títulos en catálogo'"></p>
             </article>
-            <article class="report-card">
+            <article class="report-card bg-white rounded-3 shadow-sm p-4">
                 <h3>🏷️ Géneros Totales</h3>
                 <p th:text="${generosTotal} + ' géneros disponibles'"></p>
             </article>
-            <article class="report-card">
+            <article class="report-card bg-white rounded-3 shadow-sm p-4">
                 <h3>👁️ Visualizaciones</h3>
                 <p th:text="${visualizacionesTotal} + ' reproducciones registradas'"></p>
             </article>
-            <article class="report-card">
+            <article class="report-card bg-white rounded-3 shadow-sm p-4">
                 <h3>❤️ Favoritos</h3>
                 <p th:text="${favoritosTotal} + ' contenidos marcados como favorito'"></p>
             </article>
         </section>
 
-        <section class="welcome-section">
-            <h3 style="color: #1a1a2e; margin-bottom: 20px;">📈 Tendencias</h3>
-            <p style="color: #666; text-align: center; padding: 40px 0;">
+        <section class="welcome-section bg-white rounded-3 shadow p-4 mb-4">
+            <h3 class="text-dark mb-3">📈 Tendencias</h3>
+            <p class="text-secondary text-center py-5 mb-0">
                 Los gráficos de tendencias estarían aquí
             </p>
         </section>

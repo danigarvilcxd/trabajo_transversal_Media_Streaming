@@ -13,7 +13,7 @@
             <a href="/usuario/dashboard" class="brand brand-logo">
                 <img src="/img/Logo vibrante de streaming multimedia.png" alt="Media Streaming">
             </a>
-            <ul class="nav-menu">
+            <ul class="nav-menu list-unstyled mb-0">
                 <li><a href="/usuario/dashboard">Inicio</a></li>
                 <li><a href="/usuario/contenido">Explorar</a></li>
                 <li><a href="/usuario/historial">Historial</a></li>
@@ -23,27 +23,27 @@
                 <span class="user-info" th:text="${usuario.apodo}"></span>
                 <a href="/auth/logout" class="logout-btn">Cerrar Sesión</a>
             </section>
-        </div>
+        </section>
     </nav>
 
-    <main class="dashboard-container">
-        <section class="welcome-section">
+    <main class="dashboard-container container-xxl py-4 px-3">
+        <section class="welcome-section bg-white rounded-3 shadow p-4 mb-4">
             <h2 th:text="${contenido.titulo}">Título del contenido</h2>
             <p th:text="${contenido.descripcion}">Descripción del contenido</p>
         </section>
 
-        <article class="content-card detail-card">
+        <article class="content-card detail-card bg-white rounded-3 shadow overflow-hidden">
             <div class="detail-image">
                 <img th:if="${contenido.imagen} != null" th:src="@{'/img/img_contenidos/' + ${contenido.imagen}}" th:alt="${contenido.titulo}" />
                 <div th:unless="${contenido.imagen} != null" class="default-image detail-default">🎬</div>
             </div>
-            <section class="content-card-body">
+            <section class="content-card-body p-4">
                 <p><strong>Tipo:</strong> <span th:text="${contenido.tipo}">Tipo</span></p>
                 <p><strong>Duración:</strong> <span th:text="${contenido.duracion}">Duración</span> min</p>
                 <p><strong>Géneros:</strong>
                     <span th:each="genero, generoStat : ${contenido.generos}" th:text="${genero.nombre} + (generoStat.last ? '' : ', ')"></span>
                 </p>
-                <div class="button-row" style="margin-top: 20px; display: flex; gap: 15px; flex-wrap: wrap;">
+                <div class="button-row d-flex flex-wrap gap-3 mt-4">
                     <a class="btn btn-primary" th:href="@{/usuario/contenido/ver/{id}(id=${contenido.id})}">Reproducir</a>
                     <a class="btn btn-secondary" th:href="@{/usuario/contenido/favorito/{id}(id=${contenido.id}, redirect='detalle')}" th:text="${esFavorito} ? 'Quitar favorito' : 'Agregar favorito'">Favorito</a>
                     <a class="btn btn-light" href="/usuario/contenido">Volver a explorar</a>

@@ -30,6 +30,14 @@ body {
     margin-bottom: 20px;
 }
 
+.landing-logo {
+    display: block;
+    height: 72px;
+    width: auto;
+    max-width: 360px;
+    object-fit: contain;
+}
+
 .btn-auth-header {
     background: #667eea;
     color: white;
@@ -376,6 +384,12 @@ button {
         border-radius: 8px;
     }
 
+    .landing-logo {
+        height: 58px;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
     .header-top,
     .button-group,
     .navbar-row,
@@ -442,6 +456,10 @@ button {
 
     .container {
         max-width: 640px;
+    }
+
+    .landing-logo {
+        height: 66px;
     }
 
     .auth-container {
