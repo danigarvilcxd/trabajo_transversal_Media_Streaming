@@ -51,9 +51,9 @@
         <h3 class="section-title">🎬 Todo el Contenido</h3>
         <section class="content-grid" th:if="${contenidos} != null and !${contenidos.isEmpty()}">
             <article class="content-card" th:each="item : ${contenidos}">
-                <div class="content-card-image">
-                    <img th:if="${item.imagen} != null" th:src="@{'/img/img_contenidos/' + ${item.imagen}}" th:alt="${item.titulo}" />
-                    <div th:unless="${item.imagen} != null" class="default-image">🎬</div>
+                <div class="content-card-image" th:with="portada=${item.urlArchivo != null ? item.urlArchivo : item.imagen}">
+                    <img th:if="${portada} != null" th:src="${#strings.startsWith(portada, 'http') ? portada : '/img/img_contenidos/' + portada}" th:alt="${item.titulo}" />
+                    <div th:unless="${portada} != null" class="default-image">🎬</div>
                     <div class="play-button">▶️</div>
                 </div>
                 <section class="content-card-body">

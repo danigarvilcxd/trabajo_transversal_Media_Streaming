@@ -29,9 +29,9 @@
         <h3 class="section-title">Contenido Destacado</h3>
         <div class="content-grid" th:if="${recomendados} != null and !${recomendados.isEmpty()}">
             <article class="content-card" th:each="item : ${recomendados}">
-                <div class="content-card-image">
-                    <img th:if="${item.imagen} != null" th:src="@{'/img/img_contenidos/' + ${item.imagen}}" th:alt="${item.titulo}" />
-                    <div th:unless="${item.imagen} != null" class="default-image">🎬</div>
+                <div class="content-card-image" th:with="portada=${item.urlArchivo != null ? item.urlArchivo : item.imagen}">
+                    <img th:if="${portada} != null" th:src="${#strings.startsWith(portada, 'http') ? portada : '/img/img_contenidos/' + portada}" th:alt="${item.titulo}" />
+                    <div th:unless="${portada} != null" class="default-image">🎬</div>
                 </div>
                 <section class="content-card-body">
                     <h3 th:text="${item.titulo}">Título</h3>

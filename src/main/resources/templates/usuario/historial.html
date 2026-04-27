@@ -36,9 +36,9 @@
         <h3 class="section-title">📺 Historial de Visualización</h3>
         <section class="content-grid" th:if="${historial} != null and !${historial.isEmpty()}">
             <article class="content-card" th:each="vis : ${historial}">
-                <div class="content-card-image">
-                    <img th:if="${vis.contenido.imagen} != null" th:src="@{'/img/img_contenidos/' + ${vis.contenido.imagen}}" th:alt="${vis.contenido.titulo}" />
-                    <div th:unless="${vis.contenido.imagen} != null" class="default-image">🎬</div>
+                <div class="content-card-image" th:with="portada=${vis.contenido.urlArchivo != null ? vis.contenido.urlArchivo : vis.contenido.imagen}">
+                    <img th:if="${portada} != null" th:src="${#strings.startsWith(portada, 'http') ? portada : '/img/img_contenidos/' + portada}" th:alt="${vis.contenido.titulo}" />
+                    <div th:unless="${portada} != null" class="default-image">🎬</div>
                 </div>
                 <section class="content-card-body">
                     <h3 th:text="${vis.contenido.titulo}">Título</h3>

@@ -33,9 +33,9 @@
         </section>
 
         <article class="content-card detail-card bg-white rounded-3 shadow overflow-hidden">
-            <div class="detail-image">
-                <img th:if="${contenido.imagen} != null" th:src="@{'/img/img_contenidos/' + ${contenido.imagen}}" th:alt="${contenido.titulo}" />
-                <div th:unless="${contenido.imagen} != null" class="default-image detail-default">🎬</div>
+            <div class="detail-image" th:with="portada=${contenido.urlArchivo != null ? contenido.urlArchivo : contenido.imagen}">
+                <img th:if="${portada} != null" th:src="${#strings.startsWith(portada, 'http') ? portada : '/img/img_contenidos/' + portada}" th:alt="${contenido.titulo}" />
+                <div th:unless="${portada} != null" class="default-image detail-default">🎬</div>
             </div>
             <section class="content-card-body p-4">
                 <p><strong>Tipo:</strong> <span th:text="${contenido.tipo}">Tipo</span></p>

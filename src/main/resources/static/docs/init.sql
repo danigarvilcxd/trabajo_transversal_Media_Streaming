@@ -96,76 +96,95 @@ INSERT INTO generos (nombre, descripcion) VALUES
 ('Romance', 'Historias centradas en relaciones amorosas y emocionales entre personajes.'),
 ('Documental', 'Contenido basado en hechos reales, que busca informar o educar sobre un tema específico.');
 
--- Insertar contenido de prueba ejemplos de películas, series y documentales
-INSERT INTO contenido (titulo, descripcion, tipo, duracion) VALUES
-('La Gran Aventura', 'Una emocionante película de acción que sigue a un grupo de héroes en una misión peligrosa.', 'pelicula', 120),
-('Risas Incontrolables', 'Una comedia hilarante que te hará reír de principio a fin.', 'pelicula', 90),
-('Corazones Rotos', 'Un drama intenso que explora las complejidades de las relaciones humanas.', 'pelicula', 110),
-('Noche de Terror', 'Una película de terror que te mantendrá al borde de tu asiento.', 'pelicula', 100),
-('Futuro Imaginado', 'Una fascinante película de ciencia ficción que explora un mundo futurista lleno de tecnología avanzada.', 'pelicula', 130),
-('Amor Eterno', 'Una conmovedora historia de romance que sigue a dos almas destinadas a estar juntas.', 'pelicula', 95),
-('El Mundo Real', 'Un documental impactante que revela la verdad detrás de un tema controvertido.', 'documental', 80),
-('La Serie de la Ciudad', 'Una serie de televisión que sigue las vidas entrelazadas de los habitantes de una ciudad vibrante.', 'serie', 45),
-('Risas en la Oficina', 'Una comedia de situación que se desarrolla en un entorno de oficina, llena de personajes excéntricos y situaciones cómicas.', 'serie', 30),
-('El Drama Familiar', 'Un drama que explora las complejidades de las relaciones familiares a través de varias generaciones.', 'serie', 50),
-('Terror en la Casa Embrujada', 'Una serie de terror que sigue a un grupo de personas atrapadas en una casa embrujada llena de secretos oscuros.', 'serie', 40),
-('Viaje al Espacio', 'Una serie de ciencia ficción que sigue a un equipo de astronautas en su misión para explorar el espacio profundo.', 'serie', 60),
-('Amor y Desamor', 'Una serie romántica que sigue las vidas amorosas entrelazadas de varios personajes a lo largo del tiempo.', 'serie', 35),
-('Documental sobre la Naturaleza', 'Un documental impresionante que muestra la belleza y diversidad del mundo natural.', 'documental', 70),
-('La Historia del Arte', 'Un documental educativo que explora la evolución del arte a lo largo de la historia humana.', 'documental', 90),
-('Misterios sin Resolver', 'Un documental intrigante que investiga algunos de los misterios más desconcertantes del mundo.', 'documental', 85);
+-- Las portadas se guardan en url_archivo.
+INSERT INTO contenido (titulo, descripcion, tipo, url_archivo, duracion) VALUES
+('Mad Max: Fury Road', 'En un futuro postapocalíptico, Max se une a Furiosa para huir de un tirano y atravesar el desierto en una persecución brutal.', 'pelicula', 'mad-max-fury-road.jpg', 120),
+('Superbad', 'Dos amigos intentan disfrutar al máximo su última etapa de instituto antes de separarse al ir a la universidad.', 'pelicula', 'superbad.png', 113),
+('El Padrino', 'La familia Corleone se mueve entre lealtades, poder y violencia dentro del crimen organizado de Nueva York.', 'pelicula', 'el-padrino.jpg', 175),
+('El Exorcista', 'Una madre busca ayuda cuando su hija empieza a mostrar signos de una posesión aterradora.', 'pelicula', 'el-exorcista.jpg', 122),
+('Blade Runner 2049', 'Un blade runner descubre un secreto que puede cambiar el equilibrio entre humanos y replicantes.', 'pelicula', 'blade-runner-2049.png', 164),
+('Titanic', 'Un romance imposible nace a bordo del transatlántico más famoso de la historia durante su viaje inaugural.', 'pelicula', 'titanic.png', 195),
+('John Wick', 'Un antiguo asesino regresa al mundo criminal para vengarse de quienes le arrebataron lo que más quería.', 'pelicula', 'john-wick.png', 101),
+('La La Land', 'Una actriz y un pianista persiguen sus sueños en Los Ángeles mientras su relación se pone a prueba.', 'pelicula', 'la-la-land.png', 128),
+('Stranger Things', 'Un grupo de niños descubre fuerzas sobrenaturales y secretos del gobierno tras la desaparición de un amigo.', 'serie', 'stranger-things.png', 50),
+('The Office', 'Los empleados de una oficina de ventas de papel viven situaciones absurdas bajo la dirección de un jefe muy peculiar.', 'serie', 'the-office.png', 22),
+('Breaking Bad', 'Un profesor de química con cáncer empieza a fabricar metanfetamina y se adentra en un mundo cada vez más peligroso.', 'serie', 'breaking-bad.png', 47),
+('The Haunting of Hill House', 'Una familia marcada por una casa embrujada debe enfrentarse a los traumas de su pasado.', 'serie', 'hill-house.jpg', 55),
+('Black Mirror', 'Historias independientes exploran el lado oscuro de la tecnología y su impacto en la sociedad.', 'serie', 'black-mirror.png', 60),
+('Friends', 'Seis amigos comparten amor, trabajo y momentos inolvidables en Nueva York.', 'serie', 'friends.png', 22),
+('Game of Thrones', 'Varias familias nobles luchan por el control del Trono de Hierro mientras una amenaza antigua despierta en el norte.', 'serie', 'game-of-thrones.png', 57),
+('The Mandalorian', 'Un cazarrecompensas solitario protege a un misterioso niño mientras recorre los límites de la galaxia.', 'serie', 'the-mandalorian.png', 40);
+
+-- Actualizar portadas si la base ya tenia los contenidos creados.
+UPDATE contenido SET url_archivo = 'mad-max-fury-road.jpg' WHERE titulo = 'Mad Max: Fury Road';
+UPDATE contenido SET url_archivo = 'superbad.png' WHERE titulo = 'Superbad';
+UPDATE contenido SET url_archivo = 'el-padrino.jpg' WHERE titulo = 'El Padrino';
+UPDATE contenido SET url_archivo = 'el-exorcista.jpg' WHERE titulo = 'El Exorcista';
+UPDATE contenido SET url_archivo = 'blade-runner-2049.png' WHERE titulo = 'Blade Runner 2049';
+UPDATE contenido SET url_archivo = 'titanic.png' WHERE titulo = 'Titanic';
+UPDATE contenido SET url_archivo = 'john-wick.png' WHERE titulo = 'John Wick';
+UPDATE contenido SET url_archivo = 'la-la-land.png' WHERE titulo = 'La La Land';
+UPDATE contenido SET url_archivo = 'stranger-things.png' WHERE titulo = 'Stranger Things';
+UPDATE contenido SET url_archivo = 'the-office.png' WHERE titulo = 'The Office';
+UPDATE contenido SET url_archivo = 'breaking-bad.png' WHERE titulo = 'Breaking Bad';
+UPDATE contenido SET url_archivo = 'hill-house.jpg' WHERE titulo = 'The Haunting of Hill House';
+UPDATE contenido SET url_archivo = 'black-mirror.png' WHERE titulo = 'Black Mirror';
+UPDATE contenido SET url_archivo = 'friends.png' WHERE titulo = 'Friends';
+UPDATE contenido SET url_archivo = 'game-of-thrones.png' WHERE titulo = 'Game of Thrones';
+UPDATE contenido SET url_archivo = 'the-mandalorian.png' WHERE titulo = 'The Mandalorian';
 
 -- Insertar relaciones contenido-géneros de prueba
 INSERT INTO contenido_generos (contenido_id, genero_id) VALUES
-(1, 1), -- La Gran Aventura - Acción
-(2, 2), -- Risas Incontrolables - Comedia
-(3, 3), -- Corazones Rotos - Drama
-(4, 4), -- Noche de Terror - Terror
-(5, 5), -- Futuro Imaginado - Ciencia Ficción
-(6, 6), -- Amor Eterno - Romance
-(7, 7), -- El Mundo Real - Documental
-(8, 1), -- La Serie de la Ciudad - Acción
-(9, 2), -- Risas en la Oficina - Comedia
-(10, 3), -- El Drama Familiar - Drama
-(11, 4), -- Terror en la Casa Embrujada - Terror
-(12, 5), -- Viaje al Espacio - Ciencia Ficción
-(13, 6), -- Amor y Desamor - Romance
-(14, 7), -- Documental sobre la Naturaleza - Documental
-(15, 7); -- La Historia del Arte - Documental
+(1, 1), -- Mad Max: Fury Road - Acción
+(2, 2), -- Superbad - Comedia
+(3, 3), -- El Padrino - Drama
+(4, 4), -- El Exorcista - Terror
+(5, 5), -- Blade Runner 2049 - Ciencia Ficción
+(6, 6), -- Titanic - Romance
+(7, 1), -- John Wick - Acción
+(8, 6), -- La La Land - Romance
+(9, 5), -- Stranger Things - Ciencia Ficción
+(10, 2), -- The Office - Comedia
+(11, 3), -- Breaking Bad - Drama
+(12, 4), -- The Haunting of Hill House - Terror
+(13, 5), -- Black Mirror - Ciencia Ficción
+(14, 2), -- Friends - Comedia
+(15, 3), -- Game of Thrones - Drama
+(16, 5); -- The Mandalorian - Ciencia Ficción
 
 -- Insertar visualizaciones de prueba
 INSERT INTO visualizacion (usuario_id, contenido_id, estado, tiempo_visto) VALUES
-(2, 1, 'completado', 120), -- User - La Gran Aventura
-(2, 2, 'completado', 90), -- User - Risas Incontrolables
-(3, 3, 'viendo', 60), -- User2 - Corazones Rotos
-(4, 4, 'completado', 100), -- User3 - Noche de Terror
-(5, 5, 'viendo', 30), -- User4 - Futuro Imaginado
-(6, 6, 'completado', 95), -- User5 - Amor Eterno
-(7, 7, 'completado', 80), -- User6 - El Mundo Real
-(8, 8, 'viendo', 20), -- User7 - La Serie de la Ciudad
-(9, 9, 'completado', 30), -- User8 - Risas en la Oficina
-(10, 10, 'viendo', 25), -- User9 - El Drama Familiar
-(11, 11, 'completado', 40), -- User10 - Terror en la Casa Embrujada
-(12, 12, 'viendo', 15), -- User11 - Viaje al Espacio
-(13, 13, 'completado', 35), -- User12 - Amor y Desamor
-(14, 14, 'completado', 70), -- User13 - Documental sobre la Naturaleza
-(15, 15, 'viendo', 10); -- User14 - La Historia del Arte
+(2, 1, 'completado', 120), -- User - Mad Max: Fury Road
+(2, 2, 'completado', 90), -- User - Superbad
+(3, 3, 'viendo', 60), -- User2 - El Padrino
+(4, 4, 'completado', 100), -- User3 - El Exorcista
+(5, 5, 'viendo', 30), -- User4 - Blade Runner 2049
+(6, 6, 'completado', 95), -- User5 - Titanic
+(7, 7, 'completado', 80), -- User6 - John Wick
+(8, 8, 'viendo', 20), -- User7 - La La Land
+(9, 9, 'completado', 30), -- User8 - Stranger Things
+(10, 10, 'viendo', 25), -- User9 - The Office
+(11, 11, 'completado', 40), -- User10 - Breaking Bad
+(12, 12, 'viendo', 15), -- User11 - The Haunting of Hill House
+(13, 13, 'completado', 35), -- User12 - Black Mirror
+(14, 14, 'completado', 70), -- User13 - Friends
+(15, 15, 'viendo', 10); -- User14 - Game of Thrones
 
 
 -- Insertar favoritos de prueba
 INSERT INTO favoritos (usuario_id, contenido_id) VALUES
-(2, 1), -- User - La Gran Aventura
-(2, 2), -- User - Risas Incontrolables
-(3, 3), -- User2 - Corazones Rotos
-(4, 4), -- User3 - Noche de Terror
-(5, 5), -- User4 - Futuro Imaginado
-(6, 6), -- User5 - Amor Eterno
-(7, 7), -- User6 - El Mundo Real
-(8, 8), -- User7 - La Serie de la Ciudad
-(9, 9), -- User8 - Risas en la Oficina
-(10, 10), -- User9 - El Drama Familiar
-(11, 11), -- User10 - Terror en la Casa Embrujada
-(12, 12), -- User11 - Viaje al Espacio
-(13, 13), -- User12 - Amor y Desamor
-(14, 14), -- User13 - Documental sobre la Naturaleza
-(15, 15); -- User14 - La Historia del Arte
+(2, 1), -- User - Mad Max: Fury Road
+(2, 2), -- User - Superbad
+(3, 3), -- User2 - El Padrino
+(4, 4), -- User3 - El Exorcista
+(5, 5), -- User4 - Blade Runner 2049
+(6, 6), -- User5 - Titanic
+(7, 7), -- User6 - John Wick
+(8, 8), -- User7 - La La Land
+(9, 9), -- User8 - Stranger Things
+(10, 10), -- User9 - The Office
+(11, 11), -- User10 - Breaking Bad
+(12, 12), -- User11 - The Haunting of Hill House
+(13, 13), -- User12 - Black Mirror
+(14, 14), -- User13 - Friends
+(15, 15); -- User14 - Game of Thrones

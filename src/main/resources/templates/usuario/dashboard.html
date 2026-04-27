@@ -32,29 +32,14 @@
     <!-- Dashboard Content -->
     <main class="dashboard-container container-xxl py-4 px-3">
         <div class="dashboard-layout">
-            <aside class="dashboard-panel panel-sidebar bg-white rounded-3 shadow p-4">
-                <div class="welcome-section bg-white rounded-3 p-0 shadow-none">
-                    <h2 th:text="'¡Hola, ' + ${usuario.apodo} + '! 👋'"></h2>
-                    <p>Bienvenido a tu biblioteca personal. Aquí puedes encontrar tu contenido en progreso y tus recomendaciones.</p>
-                </div>
-                <section class="panel-card bg-light rounded-3 p-3">
-                    <h4>Atajos rápidos</h4>
-                    <nav class="panel-links">
-                        <a href="/usuario/contenido" class="btn btn-secondary">Explorar contenido</a>
-                        <a href="/usuario/historial" class="btn btn-secondary">Ver historial</a>
-                        <a href="/usuario/favoritos" class="btn btn-secondary">Tus favoritos</a>
-                    </nav>
-                </section>
-            </aside>
-
             <section class="dashboard-panel panel-main bg-white rounded-3 shadow p-4">
                 <section class="section-block">
                     <h3 class="section-title panel-section-title">▶️ Continuar Viendo</h3>
                     <section class="content-grid" th:if="${continuarViendo} != null and !${continuarViendo.isEmpty()}">
                         <article class="content-card" th:each="item : ${continuarViendo}">
-                            <div class="content-card-image">
-                                <img th:if="${item.contenido.imagen} != null" th:src="@{'/img/img_contenidos/' + ${item.contenido.imagen}}" th:alt="${item.contenido.titulo}" />
-                                <div th:unless="${item.contenido.imagen} != null" class="default-image">🎬</div>
+                            <div class="content-card-image" th:with="portada=${item.contenido.urlArchivo != null ? item.contenido.urlArchivo : item.contenido.imagen}">
+                                <img th:if="${portada} != null" th:src="${#strings.startsWith(portada, 'http') ? portada : '/img/img_contenidos/' + portada}" th:alt="${item.contenido.titulo}" />
+                                <div th:unless="${portada} != null" class="default-image">🎬</div>
                                 <div class="play-button">▶️</div>
                             </div>
                             <section class="content-card-body">
@@ -74,9 +59,9 @@
                     <h3 class="section-title panel-section-title">⭐ Recomendado para ti</h3>
                     <section class="content-grid" th:if="${recomendados} != null and !${recomendados.isEmpty()}">
                         <article class="content-card" th:each="item : ${recomendados}">
-                            <div class="content-card-image">
-                                <img th:if="${item.imagen} != null" th:src="@{'/img/img_contenidos/' + ${item.imagen}}" th:alt="${item.titulo}" />
-                                <div th:unless="${item.imagen} != null" class="default-image">🎬</div>
+                            <div class="content-card-image" th:with="portada=${item.urlArchivo != null ? item.urlArchivo : item.imagen}">
+                                <img th:if="${portada} != null" th:src="${#strings.startsWith(portada, 'http') ? portada : '/img/img_contenidos/' + portada}" th:alt="${item.titulo}" />
+                                <div th:unless="${portada} != null" class="default-image">🎬</div>
                                 <div class="play-button">▶️</div>
                             </div>
                             <section class="content-card-body">

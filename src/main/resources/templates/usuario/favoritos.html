@@ -36,9 +36,9 @@
         <h3 class="section-title">❤️ Mis Contenidos Favoritos</h3>
         <section class="content-grid" th:if="${favoritos} != null and !${favoritos.isEmpty()}">
             <article class="content-card" th:each="favorito : ${favoritos}">
-                <div class="content-card-image">
-                    <img th:if="${favorito.contenido.imagen} != null" th:src="@{'/img/img_contenidos/' + ${favorito.contenido.imagen}}" th:alt="${favorito.contenido.titulo}" />
-                    <div th:unless="${favorito.contenido.imagen} != null" class="default-image">🎬</div>
+                <div class="content-card-image" th:with="portada=${favorito.contenido.urlArchivo != null ? favorito.contenido.urlArchivo : favorito.contenido.imagen}">
+                    <img th:if="${portada} != null" th:src="${#strings.startsWith(portada, 'http') ? portada : '/img/img_contenidos/' + portada}" th:alt="${favorito.contenido.titulo}" />
+                    <div th:unless="${portada} != null" class="default-image">🎬</div>
                 </div>
                 <section class="content-card-body">
                     <h3 th:text="${favorito.contenido.titulo}">Título</h3>
